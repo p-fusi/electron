@@ -6,6 +6,9 @@ import * as path from 'path'
 
 import { closeWindow } from './window-helpers'
 import { emittedOnce } from './events-helpers'
+import { ifit } from './spec-helpers'
+
+const features = process.electronBinding('features')
 
 const fixturesPath = path.resolve(__dirname, 'fixtures', 'api', 'context-bridge')
 
@@ -320,7 +323,7 @@ describe('contextBridge', () => {
         expect(result).to.deep.equal([135, 135, 135])
       })
 
-      it('it should follow expected simple rules of object identity', async () => {
+      ifit(features.isContextBridgeObjectIdentityCachingEnabled())('it should follow expected simple rules of object identity', async () => {
         await makeBindingWindow(() => {
           const o: any = { value: 135 }
           const sub = { thing: 7 }
@@ -336,7 +339,7 @@ describe('contextBridge', () => {
         expect(result).to.equal(true)
       })
 
-      it('it should follow expected complex rules of object identity', async () => {
+      ifit(features.isContextBridgeObjectIdentityCachingEnabled())('it should follow expected complex rules of object identity', async () => {
         await makeBindingWindow(() => {
           let first: any = null
           contextBridge.exposeInMainWorld('example', {

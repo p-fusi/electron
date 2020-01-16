@@ -38,4 +38,7 @@ declare_args() {
 
   # Enable Spellchecker support
   enable_builtin_spellchecker = true
+
+  # Enable object identity caching in the context bridge
+  enable_context_bridge_object_identity_caching = false
 }

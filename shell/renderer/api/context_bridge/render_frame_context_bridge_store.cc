@@ -95,6 +95,7 @@ void RenderFramePersistenceStore::OnDestruct() {
 void RenderFramePersistenceStore::CacheProxiedObject(
     v8::Local<v8::Value> from,
     v8::Local<v8::Value> proxy_value) {
+#if BUILDFLAG(ENABLE_CONTEXT_BBRIDGE_OBJECT_IDENTITY_CACHING)
   if (from->IsObject() && !from->IsNullOrUndefined()) {
     auto obj = v8::Local<v8::Object>::Cast(from);
     int hash = obj->GetIdentityHash();
@@ -123,10 +124,12 @@ void RenderFramePersistenceStore::CacheProxiedObject(
       node->prev = target;
     }
   }
+#endif
 }
 
 v8::MaybeLocal<v8::Value> RenderFramePersistenceStore::GetCachedProxiedObject(
     v8::Local<v8::Value> from) {
+#if BUILDFLAG(ENABLE_CONTEXT_BBRIDGE_OBJECT_IDENTITY_CACHING)
   if (!from->IsObject() || from->IsNullOrUndefined())
     return v8::MaybeLocal<v8::Value>();
 
@@ -145,6 +148,7 @@ v8::MaybeLocal<v8::Value> RenderFramePersistenceStore::GetCachedProxiedObject(
     }
     target = target->next;
   }
+#endif
   return v8::MaybeLocal<v8::Value>();
 }
 

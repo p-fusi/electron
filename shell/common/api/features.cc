@@ -53,6 +53,10 @@ bool IsPictureInPictureEnabled() {
   return BUILDFLAG(ENABLE_PICTURE_IN_PICTURE);
 }
 
+bool IsContextBridgeObjectIdentityCachingEnabled() {
+  return BUILDFLAG(ENABLE_CONTEXT_BBRIDGE_OBJECT_IDENTITY_CACHING);
+}
+
 bool IsComponentBuild() {
 #if defined(COMPONENT_BUILD)
   return true;
@@ -79,6 +83,8 @@ void Initialize(v8::Local<v8::Object> exports,
   dict.SetMethod("isPictureInPictureEnabled", &IsPictureInPictureEnabled);
   dict.SetMethod("isComponentBuild", &IsComponentBuild);
   dict.SetMethod("isExtensionsEnabled", &IsExtensionsEnabled);
+  dict.SetMethod("isContextBridgeObjectIdentityCachingEnabled",
+                 &IsContextBridgeObjectIdentityCachingEnabled);
 }
 
 }  // namespace

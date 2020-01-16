@@ -13,6 +13,7 @@ declare namespace NodeJS {
     isPrintingEnabled(): boolean;
     isPictureInPictureEnabled(): boolean;
     isExtensionsEnabled(): boolean;
+    isContextBridgeObjectIdentityCachingEnabled(): boolean;
     isComponentBuild(): boolean;
   }
 
