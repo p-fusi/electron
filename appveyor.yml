@@ -109,9 +109,9 @@ build_script:
         }
       }
   - ps: >-
-      if (Test-Path 'env:GOMA_AUTH_CONFIG') {
+      if (Test-Path 'env:RAW_GOMA_CONFIG') {
         $env:GOMA_OAUTH2_CONFIG_FILE = "$pwd\.goma_oauth2_config"
-        $env:GOMA_AUTH_CONFIG | Set-Content $env:GOMA_OAUTH2_CONFIG_FILE
+        $env:RAW_GOMA_CONFIG | Set-Content $env:GOMA_OAUTH2_CONFIG_FILE
         src/electron/external_binaries/goma/goma_ctl.bat ensure_start
       }
   - cd src
@@ -121,7 +121,7 @@ build_script:
   - gn check out/Default //electron:electron_app
   - gn check out/Default //electron:manifests
   - gn check out/Default //electron/shell/common/api:mojo
-  - if DEFINED GOMA_AUTH_CONFIG (ninja -j 300 -C out/Default electron:electron_app) else (ninja -C out/Default electron:electron_app)
+  - if DEFINED RAW_GOMA_CONFIG (ninja -j 300 -C out/Default electron:electron_app) else (ninja -C out/Default electron:electron_app)
   - if "%GN_CONFIG%"=="testing" ( python C:\Users\electron\depot_tools\post_build_ninja_summary.py -C out\Default )  
   - gn gen out/ffmpeg "--args=import(\"//electron/build/args/ffmpeg.gn\") %GN_EXTRA_ARGS%"
   - ninja -C out/ffmpeg electron:electron_ffmpeg_zip
