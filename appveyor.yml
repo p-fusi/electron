@@ -110,7 +110,8 @@ build_script:
       }
   - ps: >-
       if (Test-Path 'env:GOMA_AUTH_CONFIG') {
-        $env:GOMA_AUTH_CONFIG | Set-Content "$env:USERPROFILE\.goma_oauth2_config"
+        $env:GOMA_OAUTH2_CONFIG_FILE = "$pwd\.goma_oauth2_config"
+        $env:GOMA_AUTH_CONFIG | Set-Content $env:GOMA_OAUTH2_CONFIG_FILE
         src/electron/external_binaries/goma/goma_ctl.bat ensure_start
       }
   - cd src

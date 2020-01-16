@@ -221,7 +221,7 @@ step-setup-env-for-build: &step-setup-env-for-build
       echo 'export CHROMIUM_BUILDTOOLS_PATH="'"$PWD"'/src/buildtools"' >> $BASH_ENV
       # Setup Goma if applicable
       if [ ! -z "$GOMA_AUTH_CONFIG" ] && [ "`uname`" == "Linux" ]; then
-        USE_SCCACHE = "false"
+        export USE_SCCACHE="false"
         echo 'export USE_SCCACHE=false' >> $BASH_ENV
         echo 'export USE_GOMA=true' >> $BASH_ENV
         echo 'export NUMBER_OF_NINJA_PROCESSES=300' >> $BASH_ENV
