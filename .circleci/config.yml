@@ -53,7 +53,7 @@ parameters:
 # Build machines configs.
 docker-image: &docker-image
   docker:
-    - image: electronjs/build:697b894f36d127155e020f4e8ad4b2e5f6a09613
+    - image: electronjs/build:3bba0fdee0d5650e751c2561f1806f9138dfe56a
 
 machine-linux-medium: &machine-linux-medium
   <<: *docker-image
@@ -330,7 +330,7 @@ step-gn-gen-default: &step-gn-gen-default
     command: |
       cd src
       if [ "$USE_GOMA" == "true" ]; then
-        gn gen out/Default --args='import("'$GN_CONFIG'") import("//electron/build/args/goma.gn") $GN_EXTRA_ARGS $GN_BUILDFLAG_ARGS"
+        gn gen out/Default --args="import(\"$GN_CONFIG\") import(\"//electron/build/args/goma.gn\") $GN_EXTRA_ARGS $GN_BUILDFLAG_ARGS"
       else
         gn gen out/Default --args='import("'$GN_CONFIG'") cc_wrapper="'"$SCCACHE_PATH"'"'" $GN_EXTRA_ARGS $GN_BUILDFLAG_ARGS"
       fi
