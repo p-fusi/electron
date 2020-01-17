@@ -113,7 +113,7 @@ build_script:
         $env:GOMA_OAUTH2_CONFIG_FILE = "$pwd\.goma_oauth2_config"
         $env:RAW_GOMA_CONFIG | Set-Content $env:GOMA_OAUTH2_CONFIG_FILE
       }
-  - if DEFINED RAW_GOMA_CONFIG (src/electron/external_binaries/goma/goma_ctl.bat ensure_start) else (echo 'skipping goma')
+  - if DEFINED RAW_GOMA_CONFIG (.\src\electron\external_binaries\goma\goma_ctl.bat ensure_start) else (echo 'skipping goma')
   - cd src
   - ps: $env:BUILD_CONFIG_PATH="//electron/build/args/%GN_CONFIG%.gn"  
   - if DEFINED RAW_GOMA_CONFIG (gn gen out/Default "--args=import(\"%BUILD_CONFIG_PATH%\") import(\"//electron/build/args/goma.gn\") %GN_EXTRA_ARGS% ") else (gn gen out/Default "--args=import(\"%BUILD_CONFIG_PATH%\") %GN_EXTRA_ARGS% cc_wrapper=\"%SCCACHE_PATH%\"") else 

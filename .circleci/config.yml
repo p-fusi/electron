@@ -513,7 +513,7 @@ step-ffmpeg-gn-gen: &step-ffmpeg-gn-gen
     command: |
       cd src
       if [ "$USE_GOMA" == "true" ]; then
-        gn gen out/ffmpeg --args='import("//electron/build/args/ffmpeg.gn") import("//electron/build/args/goma.gn") $GN_EXTRA_ARGS"
+        gn gen out/ffmpeg --args="import(\"//electron/build/args/ffmpeg.gn\") import(\"//electron/build/args/goma.gn\") $GN_EXTRA_ARGS"
       else
         gn gen out/ffmpeg --args='import("//electron/build/args/ffmpeg.gn") cc_wrapper="'"$SCCACHE_PATH"'"'" $GN_EXTRA_ARGS"
       fi
